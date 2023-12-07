@@ -38,6 +38,7 @@ async def onclick(event):
         target.style.display = "none"
     await callapi()
     unhide_divs()
+    hide_config()
     
 
 async def callapi():
@@ -51,6 +52,10 @@ def unhide_divs():
         area = areas[a]
         target = document.getElementById("hide_" + area["name"])
         target.style.display = "block"
+
+def hide_config():
+    target = document.getElementById("hide_config")
+    target.style.display = "none"
 
 await callapi()
 unhide_divs()
