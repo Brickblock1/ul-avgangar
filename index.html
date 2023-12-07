@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
-        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+        <link rel="stylesheet" href="https://pyscript.net/releases/2023.11.2/core.css" />
+        <script type="module" src="https://pyscript.net/releases/2023.11.2/core.js"></script>
         <title>Avgångar från plats</title>
         <style>
             .flex-container {
                 display: flex;
-                background-color: YELLOW;
+                background-color: rgb(241, 200, 0);
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: space-between;
             }
             .flex-container > div {
-                background-color: SLATEGREY;
+                background-color: rgb(51, 51, 51);
                 margin: 10px;
                 padding: 20px;
                 flex-grow: 1;
@@ -21,169 +21,84 @@
                 display: none;
             }
             h1 {
+                margin: 0;
+                height: 60px;
+                line-height: 60px;
                 text-align: center;
+                vertical-align: middle;
                 font-family: Arial, Helvetica, sans-serif, ul-icons;
                 font-size: 40px;
-                background-color:SLATEGREY;
+                font-weight: inherit;
+                color: #E6E6E6;
+                background-color:rgb(51, 51, 51);
             }
             h2 {
+                margin: 0;
+                line-height: 30px;
                 text-align: center;
                 font-family: Arial, Helvetica, sans-serif, ul-icons;
                 font-size: 20px;
-                background-color:LIGHTSLATEGREY;
+                font-weight: inherit;
+                color: #E6E6E6;
+                background-color: #000000;
             }
             body {
+                margin: 0;
+                background-color: rgb(241, 200, 0);
+            }
+            p {
+                font-family: Arial, Helvetica, sans-serif, ul-icons;
+                color: #E6E6E6;
             }
         </style>
     </head>
     <meta charset="UTF-8">
     <body>
-        <h1 id=request_text></h1>
+        <h1 id=request_text></h1><!--<button id=hide_A1_button type="button" py-onClick="testfunction">work pls</button>-->
         <div class="flex-container">
-            <div id=hide_A><h2>Läge A</h2><p id=A></p></div>
-            <div id=hide_B><h2>Läge B</h2><p id=B></p></div>
-            <div id=hide_C><h2>Läge C</h2><p id=C></p></div>
-            <div id=hide_D><h2>Läge D</h2><p id=D></p></div>
-            <div id=hide_E><h2>Läge E</h2><p id=E></p></div>
-            <div id=hide_F><h2>Läge F</h2><p id=F></p></div>
-            <div id=hide_G><h2>Läge G</h2><p id=G></p></div>
-            <div id=hide_J><h2>Läge J</h2><p id=J></p></div>
-            <div id=hide_X><h2>Läge X</h2><p id=X></p></div>
-            <div id=hide_A1><h2>Läge A1</h2><p id=A1></p></div>
-            <div id=hide_A2><h2>Läge A2</h2><p id=A2></p></div>
-            <div id=hide_A3><h2>Läge A3</h2><p id=A3></p></div>
-            <div id=hide_A4><h2>Läge A4</h2><p id=A4></p></div>
-            <div id=hide_A5><h2>Läge A5</h2><p id=A5></p></div>
-            <div id=hide_B1><h2>Läge B1</h2><p id=B1></p></div>
-            <div id=hide_B2><h2>Läge B2</h2><p id=B2></p></div>
-            <div id=hide_B2a><h2>Läge B2a</h2><p id=B2a></p></div>
-            <div id=hide_B3><h2>Läge B3</h2><p id=B3></p></div>
-            <div id=hide_B4><h2>Läge B4</h2><p id=B4></p></div>
-            <div id=hide_B5><h2>Läge B5</h2><p id=B5></p></div>
-            <div id=hide_C1><h2>Läge C1</h2><p id=C1></p></div>
-            <div id=hide_C2><h2>Läge C2</h2><p id=C2></p></div>
-            <div id=hide_C3><h2>Läge C3</h2><p id=C3></p></div>
-            <div id=hide_C4><h2>Läge C4</h2><p id=C4></p></div>
-            <div id=hide_C5><h2>Läge C5</h2><p id=C5></p></div>
-            <div id=hide_D1><h2>Läge D1</h2><p id=D1></p></div>
-            <div id=hide_D2><h2>Läge D2</h2><p id=D2></p></div>
-            <div id=hide_E1><h2>Läge E1</h2><p id=E1></p></div>
-            <div id=hide_E2><h2>Läge E2</h2><p id=E2></p></div>
-            <div id=hide_1a><h2>Läge 1a</h2><p id=1a></p></div>
-            <div id=hide_1b><h2>Läge 1b</h2><p id=1b></p></div>
-            <div id=hide_2a><h2>Läge 2a</h2><p id=2a></p></div>
-            <div id=hide_2b><h2>Läge 2b</h2><p id=2b></p></div>
-            <div id=hide_3><h2>Läge 3</h2><p id=3></p></div>
-            <div id=hide_4><h2>Läge 4</h2><p id=4></p></div>
-            <div id=hide_5><h2>Läge 5</h2><p id=5></p></div>
-            <div id=hide_6><h2>Läge 6</h2><p id=6></p></div>
-            <div id=hide_7a><h2>Läge 7a</h2><p id=7a></p></div>
-            <div id=hide_7b><h2>Läge 7b</h2><p id=7b></p></div>
-            <div id=hide_8a><h2>Läge 8a</h2><p id=8a></p></div>
-            <div id=hide_8b><h2>Läge 8b</h2><p id=8b></p></div>
-            <div id=hide_10><h2>Läge 10</h2><p id=10></p></div>
+            <div id=hide_A><h2>Läge A</h2><p id=_A></p></div>
+            <div id=hide_B><h2>Läge B</h2><p id=_B></p></div>
+            <div id=hide_C><h2>Läge C</h2><p id=_C></p></div>
+            <div id=hide_D><h2>Läge D</h2><p id=_D></p></div>
+            <div id=hide_E><h2>Läge E</h2><p id=_E></p></div>
+            <div id=hide_F><h2>Läge F</h2><p id=_F></p></div>
+            <div id=hide_G><h2>Läge G</h2><p id=_G></p></div>
+            <div id=hide_J><h2>Läge J</h2><p id=_J></p></div>
+            <div id=hide_X><h2>Läge X</h2><p id=_X></p></div>
+            <div id=hide_A1><h2>Läge A1</h2><p id=_A1></p></div>
+            <div id=hide_A2><h2>Läge A2</h2><p id=_A2></p></div>
+            <div id=hide_A3><h2>Läge A3</h2><p id=_A3></p></div>
+            <div id=hide_A4><h2>Läge A4</h2><p id=_A4></p></div>
+            <div id=hide_A5><h2>Läge A5</h2><p id=_A5></p></div>
+            <div id=hide_B1><h2>Läge B1</h2><p id=_B1></p></div>
+            <div id=hide_B2><h2>Läge B2</h2><p id=_B2></p></div>
+            <div id=hide_B2a><h2>Läge B2a</h2><p id=_B2a></p></div>
+            <div id=hide_B3><h2>Läge B3</h2><p id=_B3></p></div>
+            <div id=hide_B4><h2>Läge B4</h2><p id=_B4></p></div>
+            <div id=hide_B5><h2>Läge B5</h2><p id=_B5></p></div>
+            <div id=hide_C1><h2>Läge C1</h2><p id=_C1></p></div>
+            <div id=hide_C2><h2>Läge C2</h2><p id=_C2></p></div>
+            <div id=hide_C3><h2>Läge C3</h2><p id=_C3></p></div>
+            <div id=hide_C4><h2>Läge C4</h2><p id=_C4></p></div>
+            <div id=hide_C5><h2>Läge C5</h2><p id=_C5></p></div>
+            <div id=hide_D1><h2>Läge D1</h2><p id=_D1></p></div>
+            <div id=hide_D2><h2>Läge D2</h2><p id=_D2></p></div>
+            <div id=hide_E1><h2>Läge E1</h2><p id=_E1></p></div>
+            <div id=hide_E2><h2>Läge E2</h2><p id=_E2></p></div>
+            <div id=hide_1a><h2>Läge 1a</h2><p id=_1a></p></div>
+            <div id=hide_1b><h2>Läge 1b</h2><p id=_1b></p></div>
+            <div id=hide_2a><h2>Läge 2a</h2><p id=_2a></p></div>
+            <div id=hide_2b><h2>Läge 2b</h2><p id=_2b></p></div>
+            <div id=hide_3><h2>Läge 3</h2><p id=_3></p></div>
+            <div id=hide_4><h2>Läge 4</h2><p id=_4></p></div>
+            <div id=hide_5><h2>Läge 5</h2><p id=_5></p></div>
+            <div id=hide_6><h2>Läge 6</h2><p id=_6></p></div>
+            <div id=hide_7a><h2>Läge 7a</h2><p id=_7a></p></div>
+            <div id=hide_7b><h2>Läge 7b</h2><p id=_7b></p></div>
+            <div id=hide_8a><h2>Läge 8a</h2><p id=_8a></p></div>
+            <div id=hide_8b><h2>Läge 8b</h2><p id=_8b></p></div>
+            <div id=hide_10><h2>Läge 10</h2><p id=_10></p></div>
         </div>
-    <py-script>
-from pyodide.http import pyfetch
-import asyncio
-
-
-def combine_departure(depature):
-    varstr = "output_departures_" + depature["area"]
-    global test
-    test[varstr] = test[varstr] + line_info["name"] + suffix + " mot " + line_info["towards"] + "\navgår: "+ thing[11:-4]+ " UTC trafikslag: " + str(line_info["trafficType"]) + "\n"
-
-def write_departure():
-    global response_dict
-    areas = response_dict["areas"]
-    for a in range (0, len(areas)):
-        area = areas[a]
-        pyscript.write(area["name"], test["output_departures_"+area["name"]])
-        
-    
-    
-
-stop = input()
-
-while True:
-    response = await pyfetch(url="https://api.ul.se/api/v3/stop/" + stop, method="GET")
-    response_dict = await response.json()
-
-    header_name = f" {response_dict['name']}"
-
-    departures = response_dict["departures"]
-    test = {
-    "output_departures_A": "",
-    "output_departures_B": "",
-    "output_departures_C": "",
-    "output_departures_D": "",
-    "output_departures_E": "",
-    "output_departures_F": "",
-    "output_departures_G": "",
-    "output_departures_J": "",
-    "output_departures_X": "",
-    "output_departures_A1": "",
-    "output_departures_A2": "",
-    "output_departures_A3": "",
-    "output_departures_A4": "",
-    "output_departures_A5": "",
-    "output_departures_B1": "",
-    "output_departures_B2": "",
-    "output_departures_B2a": "",
-    "output_departures_B3": "",
-    "output_departures_B4": "",
-    "output_departures_B5": "",
-    "output_departures_C1": "",
-    "output_departures_C2": "",
-    "output_departures_C3": "",
-    "output_departures_C4": "",
-    "output_departures_C5": "",
-    "output_departures_D1": "",
-    "output_departures_D2": "",
-    "output_departures_E1": "",
-    "output_departures_E2": "",
-    "output_departures_1a": "",
-    "output_departures_1b": "",
-    "output_departures_2a": "",
-    "output_departures_2b": "",
-    "output_departures_3": "",
-    "output_departures_4": "",
-    "output_departures_5": "",
-    "output_departures_6": "",
-    "output_departures_7a": "",
-    "output_departures_7b": "",
-    "output_departures_8a": "",
-    "output_departures_8b": "",
-    "output_departures_10": "",}
-    for d in range (0, len(departures)):
-        depature = departures[d]
-        has_realtime = depature["hasRealTimeDepartureDeviation"] 
-        if has_realtime == True:
-            thing = str(depature["realTimeDepartureDateTime"])
-        else:
-            thing = str(depature["departureDateTime"])
-        departure_time = time.strptime(str(thing), "%Y-%m-%dT%H:%M:%SZ") # 2023-11-16T16:47:00Z
-        current_time = time.gmtime()
-        if departure_time >= current_time:
-            first_departure = departures[d]
-            line_info = first_departure["line"]
-            if line_info["trainNo"] == 0:
-                suffix = ":an"
-            else:
-                suffix = ""
-            combine_departure(depature)
-    write_departure()
-    pyscript.write('request_text', header_name)
-
-
-    #hide unused stopmarkers
-    areas = response_dict["areas"]
-    for a in range (0, len(areas)):
-        area = areas[a]
-        target = document.getElementById("hide_" + area["name"])
-        target.style.display = "block"
-
-
-    </py-script>
+        <script type="py" src="./main.py" config="./pyscript.json" async></script>
     </body>
 </html>
