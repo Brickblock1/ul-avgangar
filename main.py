@@ -24,19 +24,26 @@ def write_departure():
         output_div2 = document.querySelector(id)
         output_div2.innerText = test["output_departures_"+area["name"]]
 
+def write_info():
+    global response_dict
+    zone = response_dict["zone"]
+    info_div = document.querySelector("#_Info")
+    info_div.innerText = "Zon: " + zone["name"] + "\nTid: " + str(datetime.today())[11:-10]
+
 config_hidden = False
 stop = "700600"
-all_areas = ["A", "B", "C", "D", "E", "F", "G", "J", "X", "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B2a", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "E1", "E2", "1a", "1b", "2a", "2b", "3", "4", "5", "6", "7a", "7b", "8a", "8b", "10"]
 
 async def onclick(event):
     global stop
-    global show_has_ran
+    areas = response_dict["areas"]
+    for a in range (0, len(areas)):
+        area = areas[a]
+        target = document.getElementById(area["name"])
+        target.style.display = "none"
     input_text = document.querySelector("#input")
     stop = input_text.value
-    for a in range (0, len(all_areas)):
-        target = document.getElementById("hide_" + all_areas[a])
-        target.style.display = "none"
     await callapi()
+    create_divs()
     unhide_divs(1)
     toggle_config(1)
     
@@ -50,138 +57,28 @@ def unhide_divs(event):
     areas = response_dict["areas"]
     for a in range (0, len(areas)):
         area = areas[a]
-        target = document.getElementById("hide_" + area["name"])
+        target = document.getElementById(area["name"])
         target.style.display = "block"
+    target = document.getElementById("hide_Info")
+    target.style.display = "block"
 
-def hide_div(div):
-    target = document.getElementById("hide_" + div)    
-    target.style.display = "none"
-
-def hide_A(event):
-    hide_div("A")
-
-def hide_B(event):
-    hide_div("B")
-
-def hide_C(event):
-    hide_div("C")
-
-def hide_D(event):
-    hide_div("D")
-
-def hide_E(event):
-    hide_div("E")
-
-def hide_F(event):
-    hide_div("F")
-
-def hide_G(event):
-    hide_div("G")
-
-def hide_J(event):
-    hide_div("J")
-
-def hide_X(event):
-    hide_div("X")
-
-def hide_A1(event):
-    hide_div("A1")
-
-def hide_A2(event):
-    hide_div("A2")
-
-def hide_A3(event):
-    hide_div("A3")
-
-def hide_A4(event):
-    hide_div("A4")
-
-def hide_A5(event):
-    hide_div("A5")
-
-def hide_B1(event):
-    hide_div("B1")
-
-def hide_B2(event):
-    hide_div("B2")
-
-def hide_B2a(event):
-    hide_div("B2a")
-
-def hide_B3(event):
-    hide_div("B3")
-
-def hide_B4(event):
-    hide_div("B4")
-
-def hide_B5(event):
-    hide_div("B5")
-
-def hide_C1(event):
-    hide_div("C1")
-
-def hide_C2(event):
-    hide_div("C2")
-
-def hide_C3(event):
-    hide_div("C3")
-
-def hide_C4(event):
-    hide_div("C4")
-
-def hide_C5(event):
-    hide_div("C5")
-
-def hide_D1(event):
-    hide_div("D1")
-
-def hide_D2(event):
-    hide_div("D2")
-
-def hide_E1(event):
-    hide_div("E1")
-
-def hide_E2(event):
-    hide_div("E2")
-
-def hide_1a(event):
-    hide_div("1a")
-
-def hide_1b(event):
-    hide_div("1b")
-
-def hide_2a(event):
-    hide_div("2a")
-
-def hide_2b(event):
-    hide_div("2b")
-
-def hide_3(event):
-    hide_div("3")
-
-def hide_4(event):
-    hide_div("4")
-
-def hide_5(event):
-    hide_div("5")
-
-def hide_6(event):
-    hide_div("6")
-
-def hide_7a(event):
-    hide_div("7a")
-
-def hide_7b(event):
-    hide_div("7b")
-
-def hide_8a(event):
-    hide_div("8a")
-
-def hide_8b(event):
-    hide_div("8b")
-
-def hide_10(event):
-    hide_div("10")
+def create_divs():
+    areas = response_dict["areas"]
+    for a in range (0, len(areas)):
+        area = areas[a]
+        if None == document.getElementById(area["name"]):
+            div = document.createElement('div')
+            div.id = area["name"]
+            document.getElementById("container").append(div)
+            h2 = document.createElement('h2')
+            h2.innerText = "Läge " + area["name"]
+            onclick = document.createAttribute("onclick")
+            onclick.value = "hide('" + area["name"] + "')"
+            h2.setAttributeNode(onclick)
+            document.getElementById(area["name"]).append(h2)
+            p = document.createElement('p')
+            p.id = "_" + area["name"]
+            document.getElementById(area["name"]).append(p)
 
 def toggle_config(event):
     target = document.getElementById("hide_config")
@@ -199,52 +96,15 @@ def strip_time(time_str):
 
 def reset_text():
     global test
-    test = {
-    "output_departures_A": "",
-    "output_departures_B": "",
-    "output_departures_C": "",
-    "output_departures_D": "",
-    "output_departures_E": "",
-    "output_departures_F": "",
-    "output_departures_G": "",
-    "output_departures_J": "",
-    "output_departures_X": "",
-    "output_departures_A1": "",
-    "output_departures_A2": "",
-    "output_departures_A3": "",
-    "output_departures_A4": "",
-    "output_departures_A5": "",
-    "output_departures_B1": "",
-    "output_departures_B2": "",
-    "output_departures_B2a": "",
-    "output_departures_B3": "",
-    "output_departures_B4": "",
-    "output_departures_B5": "",
-    "output_departures_C1": "",
-    "output_departures_C2": "",
-    "output_departures_C3": "",
-    "output_departures_C4": "",
-    "output_departures_C5": "",
-    "output_departures_D1": "",
-    "output_departures_D2": "",
-    "output_departures_E1": "",
-    "output_departures_E2": "",
-    "output_departures_1a": "",
-    "output_departures_1b": "",
-    "output_departures_2a": "",
-    "output_departures_2b": "",
-    "output_departures_3": "",
-    "output_departures_4": "",
-    "output_departures_5": "",
-    "output_departures_6": "",
-    "output_departures_7a": "",
-    "output_departures_7b": "",
-    "output_departures_8a": "",
-    "output_departures_8b": "",
-    "output_departures_10": "",
-}
+    test = {}
+    global response_dict
+    areas = response_dict["areas"]
+    for a in range(0, len(areas)):
+        area = areas[a]
+        test["output_departures_" + area["name"]] = ""
 
 await callapi()
+create_divs()
 unhide_divs(1)
 
 while True:
@@ -274,6 +134,7 @@ while True:
             line_info = first_departure["line"]
             combine_departure(depature)
     write_departure()
+    write_info()
     output_div = document.querySelector("#request_text")
     output_div.innerText = header_name
 
