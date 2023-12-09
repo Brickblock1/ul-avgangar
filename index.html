@@ -56,52 +56,53 @@
     <body>
         <div id="hide_config">
         <input type="text" id="input" placeholder="Hållplats"/>
-        <button py-click="onclick">kör</button> 
+        <button py-click="onclick">kör</button>
+        <button py-click="unhide_divs">visa gömda</button> 
         <-- skriv in nummer från UL:s websida här. Försviner efter tryck på kör, ladda om sidan om du vill ändra!</div>
-        <h1 id=request_text></h1><!--<button id=hide_A1_button type="button" py-onClick="testfunction">work pls</button>-->
+        <h1 py-click="toggle_config" id=request_text></h1><!--<button id=hide_A1_button type="button" py-onClick="testfunction">work pls</button>-->
         <div class="flex-container">
-            <div id=hide_A><h2>Läge A</h2><p id=_A></p></div>
-            <div id=hide_B><h2>Läge B</h2><p id=_B></p></div>
-            <div id=hide_C><h2>Läge C</h2><p id=_C></p></div>
-            <div id=hide_D><h2>Läge D</h2><p id=_D></p></div>
-            <div id=hide_E><h2>Läge E</h2><p id=_E></p></div>
-            <div id=hide_F><h2>Läge F</h2><p id=_F></p></div>
-            <div id=hide_G><h2>Läge G</h2><p id=_G></p></div>
-            <div id=hide_J><h2>Läge J</h2><p id=_J></p></div>
-            <div id=hide_X><h2>Läge X</h2><p id=_X></p></div>
-            <div id=hide_A1><h2>Läge A1</h2><p id=_A1></p></div>
-            <div id=hide_A2><h2>Läge A2</h2><p id=_A2></p></div>
-            <div id=hide_A3><h2>Läge A3</h2><p id=_A3></p></div>
-            <div id=hide_A4><h2>Läge A4</h2><p id=_A4></p></div>
-            <div id=hide_A5><h2>Läge A5</h2><p id=_A5></p></div>
-            <div id=hide_B1><h2>Läge B1</h2><p id=_B1></p></div>
-            <div id=hide_B2><h2>Läge B2</h2><p id=_B2></p></div>
-            <div id=hide_B2a><h2>Läge B2a</h2><p id=_B2a></p></div>
-            <div id=hide_B3><h2>Läge B3</h2><p id=_B3></p></div>
-            <div id=hide_B4><h2>Läge B4</h2><p id=_B4></p></div>
-            <div id=hide_B5><h2>Läge B5</h2><p id=_B5></p></div>
-            <div id=hide_C1><h2>Läge C1</h2><p id=_C1></p></div>
-            <div id=hide_C2><h2>Läge C2</h2><p id=_C2></p></div>
-            <div id=hide_C3><h2>Läge C3</h2><p id=_C3></p></div>
-            <div id=hide_C4><h2>Läge C4</h2><p id=_C4></p></div>
-            <div id=hide_C5><h2>Läge C5</h2><p id=_C5></p></div>
-            <div id=hide_D1><h2>Läge D1</h2><p id=_D1></p></div>
-            <div id=hide_D2><h2>Läge D2</h2><p id=_D2></p></div>
-            <div id=hide_E1><h2>Läge E1</h2><p id=_E1></p></div>
-            <div id=hide_E2><h2>Läge E2</h2><p id=_E2></p></div>
-            <div id=hide_1a><h2>Läge 1a</h2><p id=_1a></p></div>
-            <div id=hide_1b><h2>Läge 1b</h2><p id=_1b></p></div>
-            <div id=hide_2a><h2>Läge 2a</h2><p id=_2a></p></div>
-            <div id=hide_2b><h2>Läge 2b</h2><p id=_2b></p></div>
-            <div id=hide_3><h2>Läge 3</h2><p id=_3></p></div>
-            <div id=hide_4><h2>Läge 4</h2><p id=_4></p></div>
-            <div id=hide_5><h2>Läge 5</h2><p id=_5></p></div>
-            <div id=hide_6><h2>Läge 6</h2><p id=_6></p></div>
-            <div id=hide_7a><h2>Läge 7a</h2><p id=_7a></p></div>
-            <div id=hide_7b><h2>Läge 7b</h2><p id=_7b></p></div>
-            <div id=hide_8a><h2>Läge 8a</h2><p id=_8a></p></div>
-            <div id=hide_8b><h2>Läge 8b</h2><p id=_8b></p></div>
-            <div id=hide_10><h2>Läge 10</h2><p id=_10></p></div>
+            <div id=hide_A><h2 py-click="hide_A">Läge A</h2><p id=_A></p></div>
+            <div id=hide_B><h2 py-click="hide_B">Läge B</h2><p id=_B></p></div>
+            <div id=hide_C><h2 py-click="hide_C">Läge C</h2><p id=_C></p></div>
+            <div id=hide_D><h2 py-click="hide_D">Läge D</h2><p id=_D></p></div>
+            <div id=hide_E><h2 py-click="hide_E">Läge E</h2><p id=_E></p></div>
+            <div id=hide_F><h2 py-click="hide_F">Läge F</h2><p id=_F></p></div>
+            <div id=hide_G><h2 py-click="hide_G">Läge G</h2><p id=_G></p></div>
+            <div id=hide_J><h2 py-click="hide_J">Läge J</h2><p id=_J></p></div>
+            <div id=hide_X><h2 py-click="hide_X">Läge X</h2><p id=_X></p></div>
+            <div id=hide_A1><h2 py-click="hide_A1">Läge A1</h2><p id=_A1></p></div>
+            <div id=hide_A2><h2 py-click="hide_A2">Läge A2</h2><p id=_A2></p></div>
+            <div id=hide_A3><h2 py-click="hide_A3">Läge A3</h2><p id=_A3></p></div>
+            <div id=hide_A4><h2 py-click="hide_A4">Läge A4</h2><p id=_A4></p></div>
+            <div id=hide_A5><h2 py-click="hide_A5">Läge A5</h2><p id=_A5></p></div>
+            <div id=hide_B1><h2 py-click="hide_B1">Läge B1</h2><p id=_B1></p></div>
+            <div id=hide_B2><h2 py-click="hide_B2">Läge B2</h2><p id=_B2></p></div>
+            <div id=hide_B2a><h2 py-click="hide_B2a">Läge B2a</h2><p id=_B2a></p></div>
+            <div id=hide_B3><h2 py-click="hide_B3">Läge B3</h2><p id=_B3></p></div>
+            <div id=hide_B4><h2 py-click="hide_B4">Läge B4</h2><p id=_B4></p></div>
+            <div id=hide_B5><h2 py-click="hide_B5">Läge B5</h2><p id=_B5></p></div>
+            <div id=hide_C1><h2 py-click="hide_C1">Läge C1</h2><p id=_C1></p></div>
+            <div id=hide_C2><h2 py-click="hide_C2">Läge C2</h2><p id=_C2></p></div>
+            <div id=hide_C3><h2 py-click="hide_C3">Läge C3</h2><p id=_C3></p></div>
+            <div id=hide_C4><h2 py-click="hide_C4">Läge C4</h2><p id=_C4></p></div>
+            <div id=hide_C5><h2 py-click="hide_C5">Läge C5</h2><p id=_C5></p></div>
+            <div id=hide_D1><h2 py-click="hide_D1">Läge D1</h2><p id=_D1></p></div>
+            <div id=hide_D2><h2 py-click="hide_D2">Läge D2</h2><p id=_D2></p></div>
+            <div id=hide_E1><h2 py-click="hide_E1">Läge E1</h2><p id=_E1></p></div>
+            <div id=hide_E2><h2 py-click="hide_E2">Läge E2</h2><p id=_E2></p></div>
+            <div id=hide_1a><h2 py-click="hide_1a">Läge 1a</h2><p id=_1a></p></div>
+            <div id=hide_1b><h2 py-click="hide_1b">Läge 1b</h2><p id=_1b></p></div>
+            <div id=hide_2a><h2 py-click="hide_2a">Läge 2a</h2><p id=_2a></p></div>
+            <div id=hide_2b><h2 py-click="hide_2b">Läge 2b</h2><p id=_2b></p></div>
+            <div id=hide_3><h2 py-click="hide_3">Läge 3</h2><p id=_3></p></div>
+            <div id=hide_4><h2 py-click="hide_4">Läge 4</h2><p id=_4></p></div>
+            <div id=hide_5><h2 py-click="hide_5">Läge 5</h2><p id=_5></p></div>
+            <div id=hide_6><h2 py-click="hide_6">Läge 6</h2><p id=_6></p></div>
+            <div id=hide_7a><h2 py-click="hide_7a">Läge 7a</h2><p id=_7a></p></div>
+            <div id=hide_7b><h2 py-click="hide_7b">Läge 7b</h2><p id=_7b></p></div>
+            <div id=hide_8a><h2 py-click="hide_8a">Läge 8a</h2><p id=_8a></p></div>
+            <div id=hide_8b><h2 py-click="hide_8b">Läge 8b</h2><p id=_8b></p></div>
+            <div id=hide_10><h2 py-click="hide_10">Läge 10</h2><p id=_10></p></div>
         </div>
         <script type="py" src="./main.py" config="./pyscript.json" async></script>
     </body>
