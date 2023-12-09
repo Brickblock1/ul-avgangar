@@ -247,7 +247,7 @@ def reset_text():
 await callapi()
 unhide_divs(1)
 
-if True:
+while True:
 
     await callapi()
 
