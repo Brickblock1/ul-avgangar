@@ -37,7 +37,7 @@ async def onclick(event):
         target = document.getElementById("hide_" + all_areas[a])
         target.style.display = "none"
     await callapi()
-    unhide_divs()
+    unhide_divs(1)
     toggle_config(1)
     
 
