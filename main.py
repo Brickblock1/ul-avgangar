@@ -13,7 +13,11 @@ def combine_departure(departure):
     for d in range (0, len(deviations)):
         deviation = deviations[d]
         combined_deviations = combined_deviations + deviation["title"] 
-    test[varstr] = test[varstr] + line_info["name"] + " " + line_info["towards"] + "\n"+ str(scheduled_a)[11:-3] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
+    if line_info["trainNo"] == 0:
+        test[varstr] = test[varstr] + line_info["name"] + " " + line_info["towards"] + "\n"+ str(scheduled_a)[11:-3] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
+    else:
+        test[varstr] = test[varstr] + line_info["name"] + " " + line_info["towards"] + " " + str(line_info["trainNo"]) + "\n"+ str(scheduled_a)[11:-3] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
+
 
 def write_departure():
     global response_dict
