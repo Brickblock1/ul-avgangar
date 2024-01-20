@@ -8,15 +8,15 @@ def combine_departure(departure):
     varstr = "output_departures_" + departure["area"]
     global test
     #test[varstr] = test[varstr] + line_info["name"] + suffix + " mot " + line_info["towards"] + "\navgår: "+ thing[11:-4]+ " UTC trafikslag: " + traffictype["Name"] + "\n"
-    deviations = departure["deviations"]
+    #deviations = departure["deviations"]
     combined_deviations = ""
-    for d in range (0, len(deviations)):
-        deviation = deviations[d]
-        combined_deviations = combined_deviations + deviation["title"] 
-    if line_info["trainNo"] == 0:
-        test[varstr] = test[varstr] + line_info["name"] + " " + line_info["towards"] + "\n"+ str(scheduled_a)[11:-3] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
+    #for d in range (0, len(deviations)):
+    #    deviation = deviations[d]
+    #    combined_deviations = combined_deviations + deviation["title"] 
+    if line_info["name"] == "":
+        test[varstr] = test[varstr] + line_info["lineNo"] + " " + line_info["towards"] + "\n"+ str(scheduled_a)[11:-3] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
     else:
-        test[varstr] = test[varstr] + line_info["name"] + " " + line_info["towards"] + " " + str(line_info["trainNo"]) + "\n"+ str(scheduled_a)[11:-3] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
+        test[varstr] = test[varstr] + line_info["name"] + " " + line_info["towards"] + "\n"+ str(scheduled_a)[11:-3] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
 
 
 def write_departure():
@@ -29,10 +29,11 @@ def write_departure():
         output_div2.innerText = test["output_departures_"+area["name"]]
 
 def write_info():
-    global response_dict
-    zone = response_dict["zone"]
+    #global response_dict
+    #zone = response_dict["zone"]
     info_div = document.querySelector("#_Info")
-    info_div.innerText = "Zon: " + zone["name"] + "\nTid: " + str(datetime.today())[11:-10]
+    #info_div.innerText = "Zon: " + zone["name"] + "\nTid: " + str(datetime.today())[11:-10]
+    info_div.innerText = str(datetime.today())[11:-10]
 
 config_hidden = False
 stop = "700600"
@@ -54,7 +55,8 @@ async def onclick(event):
 
 async def callapi():
     global response_dict
-    response = await pyfetch(url="https://api.ul.se/api/v4/stop/" + stop, method="GET")
+    #response = await pyfetch(url="https://api.ul.se/api/v4/stop/" + stop, method="GET")
+    response = await pyfetch(url="http://192.168.10.247:5000/departures/9021003" + stop + "000", method="GET")
     response_dict = await response.json()
 
 def unhide_divs(event):
@@ -95,7 +97,7 @@ def toggle_config(event):
         config_hidden = False
 
 def strip_time(time_str):
-    striped_time = datetime.strptime(time_str, "%Y-%m-%dT%H:%M:%SZ") # 2023-11-16T16:47:00Z
+    striped_time = datetime.strptime(time_str, "%H:%M:%S") # 2023-11-16T16:47:00Z
     return striped_time
 
 def reset_text():
@@ -125,14 +127,18 @@ while True:
         hasrealtime = depature["hasRealTimeDepartureDeviation"]
         if hasrealtime == True:
             realtime = str(depature["realTimeDepartureDateTime"])
-            realtime_a = strip_time(realtime) + timedelta(hours=1)
+            realtime_a = strip_time(realtime)
             shown_realtime = str(realtime_a)[11:-3]
         else:
-            realtime_a = strip_time("0001-01-01T00:00:00Z")
+            realtime_a = strip_time("00:00:00")
             shown_realtime = ""
         scheduled = str(depature["departureDateTime"])
-        scheduled_a = strip_time(scheduled) + timedelta(hours=1)
+        scheduled_a = strip_time(scheduled)
         current_time = datetime.today() - timedelta(hours=1)
+        current_time = str(current_time)
+        current_time = current_time[11:]
+        current_time = current_time[:7]
+        current_time = strip_time(current_time)
         if (realtime_a >= current_time) | (scheduled_a >= current_time):
             first_departure = departures[d]
             line_info = first_departure["line"]
