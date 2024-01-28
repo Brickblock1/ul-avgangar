@@ -2,7 +2,6 @@ from pyodide.http import pyfetch
 from pyscript import document
 from datetime import datetime, timedelta
 import asyncio
-import os
 
 
 def combine_departure(departure):
@@ -35,7 +34,8 @@ def write_info():
     info_div.innerText = str(datetime.today())[11:-10]
 
 config_hidden = False
-stop = "700600"
+stop = "700593"
+
 async def onclick(event):
     global stop
     areas = response_dict["areas"]

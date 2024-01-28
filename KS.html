@@ -53,7 +53,7 @@
     </head>
     <meta charset="UTF-8">
     <body>
-        <div id="hide_config">
+        <div id="hide_config" style="display: none;">
         <input type="text" id="input" placeholder="Hållplats"/>
         <button py-click="onclick">kör</button>
         <button py-click="unhide_divs">visa gömda</button> 
@@ -68,6 +68,6 @@
             target.style.display = "none"
         }    
         </script>
-        <script type="py" src="./main.py" config="./pyscript.json" async></script>
+        <script type="py" src="./KS.py" config="./pyscript.json" async></script>
     </body>
 </html>
