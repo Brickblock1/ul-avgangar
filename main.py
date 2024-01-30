@@ -7,17 +7,17 @@ import os
 
 def combine_departure(departure):
     varstr = "output_departures_" + departure["area"]
-    global test
-    #test[varstr] = test[varstr] + line_info["name"] + suffix + " mot " + line_info["towards"] + "\navgår: "+ thing[11:-4]+ " UTC trafikslag: " + traffictype["Name"] + "\n"
+    global departure_strings
+    #departure_strings[varstr] = departure_strings[varstr] + line_info["name"] + suffix + " mot " + line_info["towards"] + "\navgår: "+ thing[11:-4]+ " UTC trafikslag: " + traffictype["Name"] + "\n"
     deviations = departure["deviations"]
     combined_deviations = ""
     for d in range (0, len(deviations)):
         deviation = deviations[d]
         combined_deviations = combined_deviations + deviation["title"] 
     if line_info["trainNo"] == 0:
-        test[varstr] = test[varstr] + line_info["name"] + " " + line_info["towards"] + "\n"+ str(scheduled_a)[11:-3] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
+        departure_strings[varstr] = departure_strings[varstr] + line_info["name"] + " " + line_info["towards"] + "\n"+ str(scheduled_a)[11:-3] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
     else:
-        test[varstr] = test[varstr] + line_info["name"] + " " + line_info["towards"] + " " + str(line_info["trainNo"]) + "\n"+ str(scheduled_a)[11:-3] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
+        departure_strings[varstr] = departure_strings[varstr] + line_info["name"] + " " + line_info["towards"] + " " + str(line_info["trainNo"]) + "\n"+ str(scheduled_a)[11:-3] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
 
 
 def write_departure():
@@ -27,15 +27,13 @@ def write_departure():
         area = areas[a]
         id = "#_" + area["name"]
         output_div2 = document.querySelector(id)
-        output_div2.innerText = test["output_departures_"+area["name"]]
+        output_div2.innerText = departure_strings["output_departures_"+area["name"]]
 
 def write_info():
     global response_dict
     info_div = document.querySelector("#_Info")
     info_div.innerText = str(datetime.today())[11:-10]
 
-config_hidden = False
-stop = "700600"
 async def onclick(event):
     global stop
     areas = response_dict["areas"]
@@ -69,7 +67,7 @@ def create_divs():
     areas = response_dict["areas"]
     for a in range (0, len(areas)):
         area = areas[a]
-        if None == document.getElementById(area["name"]):
+        if document.getElementById(area["name"]) == None:
             div = document.createElement('div')
             div.id = area["name"]
             document.getElementById("container").append(div)
@@ -86,7 +84,7 @@ def create_divs():
 def toggle_config(event):
     target = document.getElementById("hide_config")
     global config_hidden
-    if config_hidden == False:
+    if target.style.display == "block":
         target.style.display = "none"
         config_hidden = True
     else:
@@ -98,14 +96,16 @@ def strip_time(time_str):
     return striped_time
 
 def reset_text():
-    global test
-    test = {}
+    global departure_strings
+    departure_strings = {}
     global response_dict
     areas = response_dict["areas"]
     for a in range(0, len(areas)):
         area = areas[a]
-        test["output_departures_" + area["name"]] = ""
+        departure_strings["output_departures_" + area["name"]] = ""
 
+input_text = document.querySelector("#input")
+stop = input_text.value
 await callapi()
 create_divs()
 unhide_divs(1)
