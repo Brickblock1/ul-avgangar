@@ -124,13 +124,13 @@ while True:
         hasrealtime = depature["hasRealTimeDepartureDeviation"]
         if hasrealtime == True:
             realtime = str(depature["realTimeDepartureDateTime"])
-            realtime_a = strip_time(realtime) + timedelta(hours=1)
+            realtime_a = strip_time(realtime) + timedelta(hours=2)
             shown_realtime = str(realtime_a)[11:-3]
         else:
             realtime_a = strip_time("0001-01-01T00:00:00Z")
             shown_realtime = ""
         scheduled = str(depature["departureDateTime"])
-        scheduled_a = strip_time(scheduled) + timedelta(hours=1)
+        scheduled_a = strip_time(scheduled) + timedelta(hours=2)
         current_time = datetime.today() - timedelta(hours=1)
         if (realtime_a >= current_time) | (scheduled_a >= current_time):
             first_departure = departures[d]
