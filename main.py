@@ -92,13 +92,10 @@ def create_divs():
 
 def toggle_config(event):
     target = document.getElementById("hide_config")
-    global config_hidden
     if target.style.display == "block":
         target.style.display = "none"
-        config_hidden = True
     else:
         target.style.display = "block"
-        config_hidden = False
 
 def strip_time(time_str):
     striped_time = datetime.strptime(time_str, "%Y-%m-%dT%H:%M:%SZ") # 2023-11-16T16:47:00Z
