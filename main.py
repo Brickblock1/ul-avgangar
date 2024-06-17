@@ -1,8 +1,9 @@
+import asyncio, micropip
+await micropip.install("python-dateutil")
 from pyodide.http import pyfetch
-from pyscript import document
+from pyscript import document, window
 from datetime import datetime, timedelta
-import asyncio
-import os
+from dateutil import tz
 
 
 def combine_departure(departure):
@@ -15,9 +16,9 @@ def combine_departure(departure):
         deviation = deviations[d]
         combined_deviations = combined_deviations + deviation["title"] 
     if line_info["trainNo"] == 0:
-        departure_strings[varstr] = departure_strings[varstr] + line_info["name"] + " " + line_info["towards"] + "\n"+ str(scheduled_a)[11:-3] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
+        departure_strings[varstr] = departure_strings[varstr] + line_info["name"] + " " + line_info["towards"] + "\n"+ str(scheduled_a)[11:-9] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
     else:
-        departure_strings[varstr] = departure_strings[varstr] + line_info["name"] + " " + line_info["towards"] + " " + str(line_info["trainNo"]) + "\n"+ str(scheduled_a)[11:-3] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
+        departure_strings[varstr] = departure_strings[varstr] + line_info["name"] + " " + line_info["towards"] + " " + str(line_info["trainNo"]) + "\n"+ str(scheduled_a)[11:-9] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
 
 
 def write_departure():
@@ -32,7 +33,7 @@ def write_departure():
 def write_info():
     global response_dict
     info_div = document.querySelector("#_Info")
-    info_div.innerText = str(datetime.today())[11:-10]
+    info_div.innerText = str(current_time)[11:-16]
 
 async def onclick(event):
     global stop
@@ -42,7 +43,15 @@ async def onclick(event):
         target = document.getElementById(area["name"])
         target.style.display = "none"
     input_text = document.querySelector("#input")
-    stop = input_text.value
+    #stop = input_text.value
+    url = document.URL
+    position = url.rfind("?")
+    if position == -1:
+        new_url=url + "?" + input_text.value
+    else:
+        new_url = url[:position] + "?" + input_text.value
+    window.history.pushState(0, 0, new_url)
+    get_query()
     await callapi()
     create_divs()
     unhide_divs(1)
@@ -104,8 +113,22 @@ def reset_text():
         area = areas[a]
         departure_strings["output_departures_" + area["name"]] = ""
 
-input_text = document.querySelector("#input")
-stop = input_text.value
+def get_query():
+    global stop 
+    url = document.URL
+    position = url.find("?")
+    stop = url[position + 1:]
+    len(stop)
+    if len(stop) != 6:
+        stop = "700600"
+
+def make_time_aware(time):
+    time = time.replace(tzinfo=tz.gettz("UTC"))
+    time = time.astimezone(tz.gettz("Stockholm"))
+    return time
+        
+
+get_query()
 await callapi()
 create_divs()
 unhide_divs(1)
@@ -124,14 +147,18 @@ while True:
         hasrealtime = depature["hasRealTimeDepartureDeviation"]
         if hasrealtime == True:
             realtime = str(depature["realTimeDepartureDateTime"])
-            realtime_a = strip_time(realtime) + timedelta(hours=2)
-            shown_realtime = str(realtime_a)[11:-3]
+            realtime_a = strip_time(realtime)
+            realtime_a = make_time_aware(realtime_a)
+            shown_realtime = str(realtime_a)[11:-9]
         else:
-            realtime_a = strip_time("0001-01-01T00:00:00Z")
+            realtime_a = strip_time("0002-01-01T00:00:00Z")
+            realtime_a = make_time_aware(realtime_a)
             shown_realtime = ""
         scheduled = str(depature["departureDateTime"])
-        scheduled_a = strip_time(scheduled) + timedelta(hours=2)
-        current_time = datetime.today() - timedelta(hours=1)
+        scheduled_a = strip_time(scheduled)
+        scheduled_a = make_time_aware(scheduled_a)
+        current_time = datetime.now(tz=tz.gettz("UTC"))
+        current_time = make_time_aware(current_time)
         if (realtime_a >= current_time) | (scheduled_a >= current_time):
             first_departure = departures[d]
             line_info = first_departure["line"]
