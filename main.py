@@ -14,11 +14,20 @@ def combine_departure(departure):
     combined_deviations = ""
     for d in range (0, len(deviations)):
         deviation = deviations[d]
-        combined_deviations = combined_deviations + deviation["title"] 
+        if d == len(deviations) - 1:
+            combined_deviations = combined_deviations + deviation["header"]
+        else:
+            combined_deviations = combined_deviations + deviation["header"] + ", "
     if line_info["trainNo"] == 0:
         departure_strings[varstr] = departure_strings[varstr] + line_info["name"] + " " + line_info["towards"] + "\n"+ str(scheduled_a)[11:-9] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
     else:
-        departure_strings[varstr] = departure_strings[varstr] + line_info["name"] + " " + line_info["towards"] + " " + str(line_info["trainNo"]) + "\n"+ str(scheduled_a)[11:-9] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
+        if line_info["lineNo"] == 995:
+            linenumber = " 40 "
+        elif line_info["lineNo"] == 996:
+            linenumber = " 43 "
+        else:
+            linenumber = " "
+        departure_strings[varstr] = departure_strings[varstr] + traffictype["Name"] + linenumber + line_info["towards"] + " " + str(line_info["trainNo"]) + "\n"+ str(scheduled_a)[11:-9] + " " + shown_realtime + " " + str(combined_deviations) + "\n"
 
 
 def write_departure():
@@ -159,6 +168,7 @@ while True:
         if (realtime_a >= current_time) | (scheduled_a >= current_time):
             first_departure = departures[d]
             line_info = first_departure["line"]
+            traffictype = line_info["trafficType"]
             combine_departure(depature)
     write_departure()
     write_info()
