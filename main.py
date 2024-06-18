@@ -40,7 +40,6 @@ def write_departure():
         output_div2.innerText = departure_strings["output_departures_"+area["name"]]
 
 def write_info():
-    global response_dict
     info_div = document.querySelector("#_Info")
     info_div.innerText = str(current_time)[11:-16]
 
@@ -69,8 +68,16 @@ async def onclick(event):
 
 async def callapi():
     global response_dict
-    response = await pyfetch(url="https://api.ul.se/api/v4/stop/" + stop, method="GET")
-    response_dict = await response.json()
+    try:
+        response = await pyfetch(url="https://api.ul.se/api/v4/stop/" + stop, method="GET")
+        response_dict = await response.json()
+    except:
+        response_dict = {
+            'name': "CORS (Cross origin resource sharing) isn't enabled",
+            'areas': [{'name': "fel"}],
+            'departures': [{'hasRealTimeDepartureDeviation': False,
+                            'departureDateTime': '2023-11-16T16:47:00Z'}]
+            }
 
 def unhide_divs(event):
     areas = response_dict["areas"]
